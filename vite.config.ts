@@ -31,64 +31,7 @@ export default defineConfig(async () => {
     build: {
       outDir: path.resolve(__dirname, "dist/public"),
       emptyOutDir: true,
-      rollupOptions: {
-        output: {
-          manualChunks(id: string) {
-            // تجميع React في ملف منفصل - يتم تحميله أولاً
-            if (id.includes('node_modules/react') || 
-                id.includes('node_modules/react-dom') || 
-                id.includes('node_modules/scheduler')) {
-              return 'react-core';
-            }
-            
-            // تجميع مكتبات التوجيه (Routing)
-            if (id.includes('node_modules/react-router') || 
-                id.includes('node_modules/wouter') ||
-                id.includes('node_modules/history')) {
-              return 'router-vendor';
-            }
-            
-            // تجميع مكتبات إدارة الحالة (State Management)
-            if (id.includes('@tanstack') || 
-                id.includes('react-query') ||
-                id.includes('zustand') ||
-                id.includes('redux')) {
-              return 'state-vendor';
-            }
-            
-            // تجميع مكتبات الأيقونات
-            if (id.includes('lucide-react') || 
-                id.includes('@radix-ui/react-icons')) {
-              return 'icons-vendor';
-            }
-            
-            // تجميع مكتبات واجهة المستخدم (UI)
-            if (id.includes('@radix-ui') && !id.includes('react-icons')) {
-              return 'ui-vendor';
-            }
-            
-            // تجميع مكتبات الخرائط
-            if (id.includes('leaflet') || 
-                id.includes('@googlemaps') || 
-                id.includes('@react-google-maps') ||
-                id.includes('mapbox')) {
-              return 'maps-vendor';
-            }
-            
-            // تجميع مكتبات قاعدة البيانات (تبقى على السيرفر فقط)
-            if (id.includes('drizzle-orm') || 
-                id.includes('postgres') ||
-                id.includes('pg')) {
-              return 'db-vendor';
-            }
-            
-            // جميع المكتبات الأخرى
-            if (id.includes('node_modules')) {
-              return 'vendor';
-            }
-          }
-        },
-      },
+      // تعطيل manualChunks تماماً - هذا هو الحل الأضمن
       chunkSizeWarningLimit: 1500,
     },
     server: {
